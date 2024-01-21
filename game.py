@@ -36,9 +36,7 @@ survey_1 = {
 alg = 'Algorythm:'
 
 
-def names(n):
-    name = n
-    return name
+
 
 
 survey = {
