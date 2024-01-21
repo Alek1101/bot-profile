@@ -35,10 +35,6 @@ survey_1 = {
 
 alg = 'Algorythm:'
 
-
-
-
-
 survey = {
     -1: {
         'text':
