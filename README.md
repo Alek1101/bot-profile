@@ -1,2 +1,2 @@
 # Algorythm
-##RPG-игра, реализованная в Telegram-боте.
+## RPG-игра, реализованная в Telegram-боте.
