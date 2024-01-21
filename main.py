@@ -4,7 +4,7 @@ from telebot.types import ReplyKeyboardMarkup
 import os
 from dotenv import load_dotenv
 from functions import save_progress, load_progress
-from game import survey
+from game import survey, plot
 
 load_dotenv()
 token = os.getenv('API_KEY')
@@ -25,7 +25,14 @@ def start(message):
                                       '\n1. /start - запуск бота'
                                       '\n2. /help - узнать возможности бота'
                                       '\n3. /start_game - запустить анкету'
-                                      '\n4. /end - остановить игру')
+                                      '\n4. /end - остановить игру'
+                                      '\n5. /info - информация о сюжете')
+
+
+@bot.message_handler(commands=['info'])
+def info(m):
+    bot.send_message(m.chat.id, 'Добро пожаловать в текстовый квест Algorythm!')
+    bot.send_message(m.chat.id, plot)
 
 
 question = -1
@@ -45,7 +52,7 @@ def base_questions(m: types.Message):
         bot.send_message(m.chat.id, 'Прохождение прекращено',
                          reply_markup=types.ReplyKeyboardRemove())
         question = -1
-        save_progress(user_id, -1)
+        save_progress(user_id, question)
         return
     if question == 0 and message == 'Активация':
         markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
