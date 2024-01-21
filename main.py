@@ -47,27 +47,34 @@ def base_questions(m: types.Message):
         question = -1
         save_progress(user_id, -1)
         return
-    try:
-
-        question = survey[question]['choice'][message]
-
-        if survey[question]['choice'] == -1:
-            print('-1, end')
-            bot.send_message(m.chat.id, survey[question]['text'])
-            return
+    if question == 0 and message == 'Активация':
         markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
         for key in survey[question]['choice'].keys():
             markup.add(key)
         bot.send_message(m.chat.id, survey[question]["text"], reply_markup=markup)
         bot.register_next_step_handler(m, base_questions)
-    except:
-        print('exc')
-        bot.send_message(m.chat.id, 'Введите ответ с клавиатуры:')
-        markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        for key in survey[question]['choice'].keys():
-            markup.add(key)
-        bot.send_message(m.chat.id, survey[question]["text"], reply_markup=markup)
-        bot.register_next_step_handler(m, base_questions)
+    else:
+        try:
+
+            question = survey[question]['choice'][message]
+
+            if survey[question]['choice'] == -1:
+                print('-1, end')
+                bot.send_message(m.chat.id, survey[question]['text'])
+                return
+            markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+            for key in survey[question]['choice'].keys():
+                markup.add(key)
+            bot.send_message(m.chat.id, survey[question]["text"], reply_markup=markup)
+            bot.register_next_step_handler(m, base_questions)
+        except:
+            print('exc')
+            bot.send_message(m.chat.id, 'Вводите ответ с клавиатуры')
+            markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+            for key in survey[question]['choice'].keys():
+                markup.add(key)
+            bot.send_message(m.chat.id, survey[question]["text"], reply_markup=markup)
+            bot.register_next_step_handler(m, base_questions)
 
 
 @bot.message_handler(commands=['start_game'])
@@ -84,7 +91,9 @@ def profile_output(m: types.Message):
     if question == -1 and question is not None:
         bot.send_message(m.chat.id, survey[question]['text'])
     else:
-        bot.send_message(m.chat.id, survey[-1]['text'])
+        markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+        markup.add('Активация')
+        bot.send_message(m.chat.id, survey[-1]['text'], reply_markup=markup)
         question = 0
     bot.register_next_step_handler(m, base_questions)
 
