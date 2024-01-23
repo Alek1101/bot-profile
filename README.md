@@ -11,4 +11,6 @@
 
 ![взлом компьютера](https://github.com/Alek1101/bot-profile/assets/151769945/d999bb71-29b0-4882-9e8d-8f5845cda95b)
 
+*Все изображения сгенерированы нейросетью Kandinsky*
+Мой телеграм: [@SeoSmit](https://t.me/SeoSmit)
 ### **Приятной игры!**
