@@ -6,13 +6,13 @@ import json
 def save_progress(user_id, question_number):
     cur_progress = {str(user_id): question_number}
     try:
-        with open('bot_game/users_data.json', 'r') as file:
+        with open('users_data.json', 'r') as file:
             progress = json.load(file)
         progress[str(user_id)] = question_number
-        with open('bot_game/users_data.json', 'w') as file:
+        with open('users_data.json', 'w') as file:
             json.dump(cur_progress, file)
     except:
-        with open('bot_game/users_data.json', 'w') as file:
+        with open('users_data.json', 'w') as file:
             json.dump(cur_progress, file)
 
 
@@ -21,8 +21,10 @@ def save_progress(user_id, question_number):
 
 def load_progress(user_id):
     try:
-        with open('bot_game/users_data.json', 'r') as file:
+        with open('users_data.json', 'r') as file:
             progress = json.load(file)
             return progress.get(str(user_id))
     except FileNotFoundError:
         return None
+
+
