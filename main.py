@@ -2,15 +2,11 @@ import telebot
 from telebot import types
 from telebot.types import ReplyKeyboardMarkup
 import os
-from dotenv import load_dotenv
+from config.py import TOKEN
 from functions import save_progress, load_progress
 from game import survey, plot
 
-load_dotenv()
-token = os.getenv('API_KEY')
-if token is None:
-    raise ValueError('в файле .env отсутствует API_KEY')
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(Token)
 
 
 @bot.message_handler(commands=['start'])
