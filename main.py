@@ -76,10 +76,10 @@ def base_questions(m: types.Message):
                 with open(survey[question]['photo'], 'rb') as f:
                     bot.send_photo(m.chat.id, f)
                 bot.send_message(m.chat.id, survey[question]['text'])
-                question = -1
-                save_progress(user_id, question)
                 if question == 15:
                     bot.send_message(m.chat.id, '<b>Вы прошли игру на лучшую концовку!</b>', parse_mode='html')
+                question = -1
+                save_progress(user_id, question)
                 bot.send_message(m.chat.id, 'Игра окончена.'
                                             '\nСпасибо за прохождение!', reply_markup=types.ReplyKeyboardRemove())
                 menu(m)
@@ -111,6 +111,7 @@ def base_questions(m: types.Message):
 def profile_output(m: types.Message):
     global question
     bot.send_message(m.from_user.id, 'Запускаем игру')
+    print(question)
     user_id = m.from_user.id
     try:
         question = load_progress(user_id)
@@ -118,7 +119,7 @@ def profile_output(m: types.Message):
         question = -1
     markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     markup.add('Активация')
-    with open(survey[question]['photo'], 'rb') as f:
+    with open(survey[-1]['photo'], 'rb') as f:
         bot.send_photo(m.chat.id, f)
     markup.add('/end')
     bot.send_message(m.chat.id, survey[-1]['text'], reply_markup=markup)
